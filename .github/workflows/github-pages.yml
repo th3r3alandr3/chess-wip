@@ -1,12 +1,12 @@
 on:
-    push:
-        branches:
-            - 'master'
-
+  push:
+    branches:
+      - 'master'
+ 
 jobs:
-    build-deploy:
-        runs-on: ubuntu-latest
-        steps:
-            -   id: build-publish
-                uses: bitovi/github-actions-react-to-ghp@v1.1.1
-                    path: dist
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - id: build-publish
+      uses: bitovi/github-actions-react-to-ghp@v1.1.1
+        path: dist
