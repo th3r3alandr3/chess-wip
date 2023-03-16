@@ -79,7 +79,7 @@ const App = () => {
         pawns.push(<primitive object={clone} position={[position[0], position[1], position[2]]} onClick={pieceClick}/>);
     });
 
-    const boardTexture = useLoader(THREE.TextureLoader, process.env.PUBLIC_URL +  'textures/board.jpg')
+    const boardTexture = useLoader(THREE.TextureLoader, process.env.PUBLIC_URL +  '/textures/board.jpg')
 
     const controls = useRef();
     const fields = [];
