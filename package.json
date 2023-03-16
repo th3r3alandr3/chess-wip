@@ -21,6 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://th3r3alandr3.github.io/chess",
   "eslintConfig": {
     "extends": [
       "react-app",
