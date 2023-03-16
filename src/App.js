@@ -1,10 +1,9 @@
 import React, {useRef} from 'react'
-import {Canvas, useLoader, useThree} from '@react-three/fiber'
-import {OrbitControls, Environment, CameraControls} from '@react-three/drei'
+import {Canvas, useLoader} from '@react-three/fiber'
+import {Environment, CameraControls} from '@react-three/drei'
 import * as THREE from "three";
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import Chess from "./Chess.ts";
-import {gsap} from "gsap";
 
 const chess = new Chess();
 const colorWhite = 0xff0000;
