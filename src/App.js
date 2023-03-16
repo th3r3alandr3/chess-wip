@@ -11,12 +11,12 @@ const colorBlack = 0x00ff00;
 let activeColor = colorWhite;
 
 const App = () => {
-    const rookGLTF = useLoader(GLTFLoader, '/models/rook.glb');
-    const knightGLTF = useLoader(GLTFLoader, '/models/knight.glb');
-    const bishopGLTF = useLoader(GLTFLoader, '/models/bishop.glb');
-    const queenGLTF = useLoader(GLTFLoader, '/models/queen.glb');
-    const kingGLTF = useLoader(GLTFLoader, '/models/king.glb');
-    const pawnGLTF = useLoader(GLTFLoader, '/models/pawn.glb');
+    const rookGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/rook.glb');
+    const knightGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/knight.glb');
+    const bishopGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/bishop.glb');
+    const queenGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/queen.glb');
+    const kingGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/king.glb');
+    const pawnGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/pawn.glb');
 
     const rook = initGLTF(rookGLTF);
     const knight = initGLTF(knightGLTF);
@@ -79,7 +79,7 @@ const App = () => {
         pawns.push(<primitive object={clone} position={[position[0], position[1], position[2]]} onClick={pieceClick}/>);
     });
 
-    const boardTexture = useLoader(THREE.TextureLoader, 'textures/board.jpg')
+    const boardTexture = useLoader(THREE.TextureLoader, process.env.PUBLIC_URL +  'textures/board.jpg')
 
     const controls = useRef();
     const fields = [];
