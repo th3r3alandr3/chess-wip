@@ -1,29 +1,29 @@
 import * as THREE from "three";
 
 export default class Chess {
-    private selectedPiece = [];
+    private selectedPiece = [] as number[];
 
     private activePlayer = "white";
 
     private capturedPieces = {
         white: [],
         black: [],
-    }
+    } as { [key: string]: string[] };
 
     private kingNotMoved = {
         white: true,
         black: true,
-    }
+    } as { [key: string]: boolean };
 
     private leftRookNotMoved = {
         white: true,
         black: true,
-    }
+    } as { [key: string]: boolean };
 
     private rightRookNotMoved = {
         white: true,
         black: true,
-    }
+    } as { [key: string]: boolean };
 
     private board = [
         ["R", "N", "B", "Q", "K", "B", "N", "R"],
@@ -85,7 +85,7 @@ export default class Chess {
             console.log('Chess Board', this.board);
             return {newPosition: this.indexToPosition(x, y), capture: move.capture, castling: castlingRook};
         }
-        return null;
+        return {newPosition: null, capture: null, castling: null};
     }
 
     public getPossibleMoves(position: THREE.Vector3) {
@@ -442,7 +442,7 @@ export default class Chess {
 
     public isKingInCheck(): boolean {
         const kingSymbol = this.activePlayer === "white" ? "K" : "k";
-        let kingPosition: [number, number];
+        let kingPosition: [number, number] | undefined;
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
                 if (this.board[i][j] === kingSymbol) {
@@ -453,6 +453,10 @@ export default class Chess {
             if (kingPosition) {
                 break;
             }
+        }
+
+        if (!kingPosition) {
+            return false;
         }
 
         for (let i = 0; i < 8; i++) {
