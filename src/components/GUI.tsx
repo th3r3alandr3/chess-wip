@@ -1,6 +1,6 @@
 import {useLoader} from '@react-three/fiber';
-import React, {RefObject, useRef} from 'react';
-import {Environment, CameraControls} from '@react-three/drei';
+import React, {RefObject} from 'react';
+import {CameraControls} from '@react-three/drei';
 import * as THREE from 'three';
 import Chess from '../ts/Chess';
 import ChessBoard from './ChessBoard';
