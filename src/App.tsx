@@ -17,19 +17,35 @@ let activeColor = colorWhite;
 let selectedPiece = null as THREE.Object3D | null;
 
 const App: React.FC = () => {
-    const rookGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/rook.glb');
-    const knightGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/knight.glb');
-    const bishopGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/bishop.glb');
-    const queenGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/queen.glb');
-    const kingGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/king.glb');
-    const pawnGLTF = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/pawn.glb');
+    const rookData = {
+        gltf: useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/rook.glb'),
+        positions: [[-3.5, 0, 3.5], [-3.5, 0, -3.5], [3.5, 0, 3.5], [3.5, 0, -3.5]] as [number, number, number][],
+    };
 
-    const rookPositions = [[-3.5, 0, 3.5], [-3.5, 0, -3.5], [3.5, 0, 3.5], [3.5, 0, -3.5]] as [number, number, number][];
-    const knightPositions = [[-2.5, 0, 3.5], [-2.5, 0, -3.5], [2.5, 0, 3.5], [2.5, 0, -3.5]] as [number, number, number][];
-    const bishopPositions = [[-1.5, 0, 3.5], [-1.5, 0, -3.5], [1.5, 0, 3.5], [1.5, 0, -3.5]] as [number, number, number][];
-    const queenPositions = [[-.5, 0, 3.5], [-.5, 0, -3.5]] as [number, number, number][];
-    const kingPositions = [[.5, 0, 3.5], [.5, 0, -3.5]] as [number, number, number][];
-    const pawnPositions = [[-3.5, 0, 2.5], [-3.5, 0, -2.5], [3.5, 0, 2.5], [3.5, 0, -2.5], [-2.5, 0, -2.5], [-2.5, 0, 2.5], [2.5, 0, -2.5], [2.5, 0, 2.5], [-1.5, 0, -2.5], [-1.5, 0, 2.5], [1.5, 0, -2.5], [1.5, 0, 2.5], [-.5, 0, -2.5], [-.5, 0, 2.5], [.5, 0, -2.5], [.5, 0, 2.5]] as [number, number, number][];
+    const knightData = {
+        gltf: useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/knight.glb'),
+        positions: [[-2.5, 0, 3.5], [-2.5, 0, -3.5], [2.5, 0, 3.5], [2.5, 0, -3.5]] as [number, number, number][],
+    };
+
+    const bishopData = {
+        gltf: useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/bishop.glb'),
+        positions: [[-1.5, 0, 3.5], [-1.5, 0, -3.5], [1.5, 0, 3.5], [1.5, 0, -3.5]] as [number, number, number][],
+    };
+
+    const queenData = {
+        gltf: useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/queen.glb'),
+        positions: [[-.5, 0, 3.5], [-.5, 0, -3.5]] as [number, number, number][],
+    };
+
+    const kingData = {
+        gltf: useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/king.glb'),
+        positions: [[.5, 0, 3.5], [.5, 0, -3.5]] as [number, number, number][],
+    };
+
+    const pawnData = {
+        gltf: useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/pawn.glb'),
+        positions: [[-3.5, 0, 2.5], [-3.5, 0, -2.5], [3.5, 0, 2.5], [3.5, 0, -2.5], [-2.5, 0, -2.5], [-2.5, 0, 2.5], [2.5, 0, -2.5], [2.5, 0, 2.5], [-1.5, 0, -2.5], [-1.5, 0, 2.5], [1.5, 0, -2.5], [1.5, 0, 2.5], [-.5, 0, -2.5], [-.5, 0, 2.5], [.5, 0, -2.5], [.5, 0, 2.5]] as [number, number, number][],
+    };
 
     const boardTexture = useLoader(THREE.TextureLoader, process.env.PUBLIC_URL + '/textures/board.jpg')
     const controls = useRef<any>();
@@ -59,46 +75,34 @@ const App: React.FC = () => {
                     colorBlack={colorBlack}
                 />
                 <Pieces
-                    gltf={rookGLTF}
-                    colorWhite={colorWhite}
-                    colorBlack={colorBlack}
+                    gltf={rookData.gltf}
                     pieceClick={pieceClick}
-                    positions={rookPositions}
+                    positions={rookData.positions}
                 />
                 <Pieces
-                    gltf={knightGLTF}
-                    colorWhite={colorWhite}
-                    colorBlack={colorBlack}
+                    gltf={knightData.gltf}
                     pieceClick={pieceClick}
-                    positions={knightPositions}
+                    positions={knightData.positions}
                 />
                 <Pieces
-                   gltf={bishopGLTF}
-                    colorWhite={colorWhite}
-                    colorBlack={colorBlack}
+                   gltf={bishopData.gltf}
                     pieceClick={pieceClick}
-                    positions={bishopPositions}
+                    positions={bishopData.positions}
                 />
                 <Pieces
-                    gltf={queenGLTF}
-                    colorWhite={colorWhite}
-                    colorBlack={colorBlack}
+                    gltf={queenData.gltf}
                     pieceClick={pieceClick}
-                    positions={queenPositions}
+                    positions={queenData.positions}
                 />
                 <Pieces
-                    gltf={kingGLTF}
-                    colorWhite={colorWhite}
-                    colorBlack={colorBlack}
+                    gltf={kingData.gltf}
                     pieceClick={pieceClick}
-                    positions={kingPositions}
+                    positions={kingData.positions}
                 />
                 <Pieces
-                    gltf={pawnGLTF}
-                    colorWhite={colorWhite}
-                    colorBlack={colorBlack}
+                    gltf={pawnData.gltf}
                     pieceClick={pieceClick}
-                    positions={pawnPositions}
+                    positions={pawnData.positions}
                 />
             </Canvas>
         </div>

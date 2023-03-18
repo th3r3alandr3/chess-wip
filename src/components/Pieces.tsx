@@ -17,12 +17,14 @@ declare global {
 type PieceProps = {
     gltf: GLTF;
     positions: Array<[number, number, number]>;
-    colorWhite: number;
-    colorBlack: number;
     pieceClick: (event: ThreeEvent<MouseEvent>) => void;
 };
 
-const Pieces: React.FC<PieceProps> = ({gltf, positions, colorWhite, colorBlack, pieceClick}) => {
+const colorWhite = 0xff0000;
+
+const colorBlack = 0x00ff00;
+
+const Pieces: React.FC<PieceProps> = ({gltf, positions, pieceClick}) => {
     const pieces = [] as JSX.Element[]
 
     const piece = initGLTF(gltf);
@@ -43,7 +45,7 @@ const Pieces: React.FC<PieceProps> = ({gltf, positions, colorWhite, colorBlack, 
 const initGLTF = (gltf: GLTF) => {
     const mesh = gltf.scene.children[0] as THREE.Mesh;
     mesh.scale.set(0.5, 0.5, 0.5);
-    if(mesh.material instanceof THREE.MeshStandardMaterial) {
+    if (mesh.material instanceof THREE.MeshStandardMaterial) {
         mesh.material.transparent = true;
         mesh.material.opacity = .8;
         mesh.material.roughness = 0;
