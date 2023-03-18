@@ -107,6 +107,42 @@ export default class Chess {
         return [position.z + 3.5, position.x + 3.5];
     }
 
+    public isKingInCheck(activePlayer: string): boolean {
+        const kingSymbol = activePlayer === "white" ? "K" : "k";
+        let kingPosition: [number, number] | undefined;
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                if (this.board[i][j] === kingSymbol) {
+                    kingPosition = [i, j];
+                    break;
+                }
+            }
+            if (kingPosition) {
+                break;
+            }
+        }
+
+        if (!kingPosition) {
+            return false;
+        }
+
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                const piece = this.board[i][j];
+                if (piece && piece.toLowerCase() !== kingSymbol.toLowerCase() && piece.toLowerCase() !== "p" && piece.toLowerCase() !== "k" && piece.toLowerCase() !== " ") {
+                    const possibleMoves = this.getPossibleMovesForPiece(piece, i, j);
+                    for (const move of possibleMoves) {
+                        if (move.x === kingPosition[0] && move.y === kingPosition[1]) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     private getPossibleMovesForPiece(piece: string, x: number, y: number) {
         console.log("Chess getPossibleMovesForPiece", piece);
         switch (piece) {
@@ -378,8 +414,7 @@ export default class Chess {
 
         return possibleMoves;
     }
-
-
+    
     private getPossibleMovesForQueen(x: number, y: number, symbol: string) {
         return [this.getPossibleMovesForRook(x, y, symbol), this.getPossibleMovesForBishop(x, y, symbol)].flat();
     }
@@ -416,7 +451,7 @@ export default class Chess {
             }
         }
 
-        if(this.kingNotMoved[this.activePlayer]) {
+        if(this.kingNotMoved[this.activePlayer] && !this.isKingInCheck(this.activePlayer)) {
             if(this.leftRookNotMoved[this.activePlayer]) {
                 if(this.board[x][y - 1] === " " && this.board[x][y - 2] === " " && this.board[x][y - 3] === " ") {
                     possibleMoves.push({x: x, y: y - 2, capture: false, castling: true});
@@ -438,42 +473,6 @@ export default class Chess {
 
     private getMove(x: number, y: number, possibleMoves: any): { x: number, y: number, capture: boolean, castling: boolean } | undefined {
         return possibleMoves.find((move: any) => move.x === x && move.y === y);
-    }
-
-    public isKingInCheck(): boolean {
-        const kingSymbol = this.activePlayer === "white" ? "K" : "k";
-        let kingPosition: [number, number] | undefined;
-        for (let i = 0; i < 8; i++) {
-            for (let j = 0; j < 8; j++) {
-                if (this.board[i][j] === kingSymbol) {
-                    kingPosition = [i, j];
-                    break;
-                }
-            }
-            if (kingPosition) {
-                break;
-            }
-        }
-
-        if (!kingPosition) {
-            return false;
-        }
-
-        for (let i = 0; i < 8; i++) {
-            for (let j = 0; j < 8; j++) {
-                const piece = this.board[i][j];
-                if (piece && piece.toLowerCase() !== kingSymbol.toLowerCase() && piece.toLowerCase() !== "p" && piece.toLowerCase() !== "k" && piece.toLowerCase() !== " ") {
-                    const possibleMoves = this.getPossibleMovesForPiece(piece, i, j);
-                    for (const move of possibleMoves) {
-                        if (move.x === kingPosition[0] && move.y === kingPosition[1]) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return false;
     }
 
 }

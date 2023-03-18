@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import * as React from 'react';
 import {ThreeEvent} from "@react-three/fiber/dist/declarations/src/core/events";
-import {GLTF} from "three/examples/jsm/loaders/GLTFLoader";
+import {GLTF, GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+import {useLoader} from "@react-three/fiber";
 
 declare global {
     namespace JSX {
@@ -15,7 +16,7 @@ declare global {
 }
 
 type PieceProps = {
-    gltf: GLTF;
+    gltf: string;
     positions: Array<[number, number, number]>;
     pieceClick: (event: ThreeEvent<MouseEvent>) => void;
 };
@@ -27,7 +28,7 @@ const colorBlack = 0x00ff00;
 const Pieces: React.FC<PieceProps> = ({gltf, positions, pieceClick}) => {
     const pieces = [] as JSX.Element[]
 
-    const piece = initGLTF(gltf);
+    const piece = initGLTF(useLoader(GLTFLoader, gltf));
 
     positions.forEach((position) => {
         const clone = piece.clone() as THREE.Mesh;
